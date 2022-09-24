@@ -15,11 +15,12 @@ import sig.codebind.model.InvoiceHeader;
 import sig.codebind.model.InvoiceLine;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class RightPanelBtnListner implements ActionListener{
 
 	private SalesInvoiceGenerator salesInvoiceGenerator;
-	
+
 	public RightPanelBtnListner(SalesInvoiceGenerator salesInvoiceGenerator) {
 		this.salesInvoiceGenerator = salesInvoiceGenerator;
 	}
@@ -27,26 +28,38 @@ public class RightPanelBtnListner implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
-		case "createNewInvoiceItem":
-			displayNewItemDialog();
-			break;
-		case "createItemOK":
-			  createItemOK();
-			break;
-		case "createItemCancel":
-			createItemCancel();
-			break;
-		case "saveChange":
-			saveChange();
-			break;
-		case "cancel":
-			cancel();
-			break;
+			case "createNewInvoiceItem":
+				displayNewItemDialog();
+				break;
+			case "createItemOK":
+				createItemOK();
+				break;
+			case "createItemCancel":
+				createItemCancel();
+				break;
+			case "saveChange":
+				saveChange();
+				break;
+			case "deleteSelectedRows":
+				deleteSelectedRows();
+				break;
+			case "cancel":
+				cancel();
+				break;
 		}
 	}
-	
+
 	private void cancel() {
 		salesInvoiceGenerator.dispose();
+	}
+
+	private void deleteSelectedRows() {
+		System.out.println(salesInvoiceGenerator.getInvoicesDetailsTable().getSelectedRow());
+		DefaultTableModel df1 = (DefaultTableModel) salesInvoiceGenerator.getInvoicesDetailsTable().getModel();
+		int rs[] = salesInvoiceGenerator.getInvoicesDetailsTable().getSelectedRows();
+		for (int i = rs.length-1; i >=0 ; i--) {
+			df1.removeRow(rs[i]);
+		}
 	}
 
 	private void saveChange() {
