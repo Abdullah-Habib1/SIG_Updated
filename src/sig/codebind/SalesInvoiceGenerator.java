@@ -6,9 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +17,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import sig.codebind.dialogs.InvoiceItemDialog;
 import sig.codebind.listners.LeftPanelBtnListner;
@@ -31,7 +28,7 @@ import sig.codebind.model.InvoiceHeader;
 public class SalesInvoiceGenerator extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -82,14 +79,12 @@ public class SalesInvoiceGenerator extends JFrame {
 
 	private RightPanelBtnListner rightPanelBtnListner = new RightPanelBtnListner(this);
 
-	private JButton saveChangeButton;
+	private JButton deleteChangeButton;
 
 	private JButton cancelButton;
 
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -107,9 +102,7 @@ public class SalesInvoiceGenerator extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public SalesInvoiceGenerator() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		readInvoiceItemFile();
@@ -230,18 +223,13 @@ public class SalesInvoiceGenerator extends JFrame {
 
 		rightBtnPanel.add(createInvoiceItemButton);
 		rightBtnPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-		saveChangeButton = new JButton("Save");
-		saveChangeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		rightBtnPanel.add(saveChangeButton);
+		deleteChangeButton = new JButton("Delete Item");
+		deleteChangeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		rightBtnPanel.add(deleteChangeButton);
 		rightBtnPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-		saveChangeButton.setActionCommand("saveChange");
-		saveChangeButton.addActionListener(rightPanelBtnListner);
-		cancelButton = new JButton("Cancel");
-		cancelButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		rightBtnPanel.add(cancelButton);
-		rightBtnPanel.add(Box.createHorizontalGlue());
-		cancelButton.setActionCommand("cancel");
-		cancelButton.addActionListener(rightPanelBtnListner);
+		deleteChangeButton.setActionCommand("deleteSelectedRows");
+		deleteChangeButton.addActionListener(rightPanelBtnListner);
+
 	}
 
 	public void initState() {
@@ -370,7 +358,7 @@ public class SalesInvoiceGenerator extends JFrame {
 		for (int index = 0; index < invoiceHeaders.size(); index++) {
 			InvoiceHeader invoiceHeader = invoiceHeaders.get(index);
 			Object[] model = new Object[] {
-				invoiceHeader.invoiceNum, invoiceHeader.invoiceDate, invoiceHeader.customerName, invoiceHeader.getTotal()
+					invoiceHeader.invoiceNum, invoiceHeader.invoiceDate, invoiceHeader.customerName, invoiceHeader.getTotal()
 			};
 			invoicesTableModel.insertRow(index, model);
 		}
@@ -472,8 +460,8 @@ public class SalesInvoiceGenerator extends JFrame {
 		return rightPanelBtnListner;
 	}
 
-	public JButton getSaveChangeButton() {
-		return saveChangeButton;
+	public JButton getDeleteChangeButton() {
+		return deleteChangeButton;
 	}
 
 	public JButton getCancelButton() {
