@@ -95,7 +95,7 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 		return table;
 	}
 
-//
+	//
 //  Implement the PropertyChangeListener interface
 //
 	@Override
@@ -152,4 +152,5 @@ public class TableCellListener implements PropertyChangeListener, Runnable {
 			action.actionPerformed(event);
 		}
 	}
+
 }
