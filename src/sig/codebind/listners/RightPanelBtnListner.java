@@ -115,7 +115,15 @@ public class RightPanelBtnListner implements ActionListener{
 	}
 
 	private void displayNewItemDialog() {
-		salesInvoiceGenerator.setInvoiceItemDialog(new InvoiceItemDialog(salesInvoiceGenerator));
-		salesInvoiceGenerator.getInvoiceItemDialog().setVisible(true);
+
+		int selectedRow = salesInvoiceGenerator.getInvoicesTable().getSelectedRow();
+
+		if (selectedRow == -1){
+			JOptionPane.showMessageDialog(salesInvoiceGenerator, "Please load and select invoice!",
+					"Error", JOptionPane.ERROR_MESSAGE);
+		}else {
+			salesInvoiceGenerator.setInvoiceItemDialog(new InvoiceItemDialog(salesInvoiceGenerator));
+			salesInvoiceGenerator.getInvoiceItemDialog().setVisible(true);
+		}
 	}
 }
