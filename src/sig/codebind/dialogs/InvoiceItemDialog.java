@@ -27,7 +27,11 @@ public class InvoiceItemDialog extends JDialog {
 	private JButton cancelBtn;
 
 	public InvoiceItemDialog(SalesInvoiceGenerator salesInvoiceGenerator) {
+		int selectedRow = salesInvoiceGenerator.getInvoicesTable().getSelectedRow();
+		Object invoiceNoObject = salesInvoiceGenerator.getInvoicesTableModel().getValueAt(selectedRow, 0);
 		invoiceNoField = new JTextField(20);
+		invoiceNoField.setEditable(true);
+		invoiceNoField.setText("");
 		invoiceNoLbl = new JLabel("No.");
 		
 		itemNameField = new JTextField(20);
